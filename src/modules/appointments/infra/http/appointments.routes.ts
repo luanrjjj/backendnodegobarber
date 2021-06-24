@@ -10,7 +10,7 @@ import ensureAuthenticated from '../../../users/infra/http/middlewares/ensureAut
  
 const appointmentsRouter = Router();
 
-const appointmentsRepository = new AppointmentsRepository();
+
 
 appointmentsRouter.use(ensureAuthenticated); // Será aplicado em todas as rotas de Agendamento
 
@@ -26,6 +26,7 @@ appointmentsRouter.use(ensureAuthenticated); // Será aplicado em todas as rotas
 //  })
 
 appointmentsRouter.post('/',async (request,response)=>{
+  const appointmentsRepository = new AppointmentsRepository();
   const { provider_id, date } = request.body;
 
   const parsedDate = parseISO(date);

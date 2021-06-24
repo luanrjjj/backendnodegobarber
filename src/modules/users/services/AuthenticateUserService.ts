@@ -8,7 +8,7 @@ import {compare} from 'bcryptjs'
 
 import authConfig from '../../../config/auth'
 
-
+import IUsersRepository from '../repositories/IUsersRepository'
 
 
 
@@ -24,11 +24,14 @@ interface Response {
     token:string;
 }
 class AuthenticateUserService {
+    constructor(private usersRepository:IUsersRepository) {
+
+    }
 
     public async execute({email,password}:Request):Promise<Response> {
-        const usersRepository = getRepository(User);
+        
 
-        const user = await usersRepository.findOne({where:{email} });
+        const user = await this.usersRepository.findByEmail(email);
 
 
         
