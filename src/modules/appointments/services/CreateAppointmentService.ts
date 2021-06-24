@@ -5,6 +5,8 @@ import {getCustomRepository} from 'typeorm';
 
 import IAppointmentsRepository from '../repositories/IAppointmentsRepository'
 
+import { container, inject, injectable } from 'tsyringe';
+
 /**
  * 1 - Recebimento das Informações
  * 2 - Tratativa de Erros e Exceções
@@ -20,13 +22,13 @@ interface IRequest {
 }
 
 
-
+@injectable()
 class CreateAppointmentService {
   
-    constructor (private appointmentsRepository:IAppointmentsRepository) {
-
-
-        }
+    constructor (
+        @inject('AppointmentsRepository')
+        private appointmentsRepository:IAppointmentsRepository
+        ) {}
     
     
     public async execute({date,provider_id}: IRequest):Promise<Appointment> {  // 1- Resolvido aqui

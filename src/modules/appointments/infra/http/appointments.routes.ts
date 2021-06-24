@@ -4,6 +4,7 @@ import CreateAppointmentService from '../../services/CreateAppointmentService';
 import {getCustomRepository} from 'typeorm';
 import AppointmentsRepository from '../../infra/typeorm/repositories/AppointmentsRepository';
 
+import {container} from 'tsyringe'
 
 import ensureAuthenticated from '../../../users/infra/http/middlewares/ensureAuthenticated';
 
@@ -31,7 +32,7 @@ appointmentsRouter.post('/',async (request,response)=>{
 
   const parsedDate = parseISO(date);
 
-  const createAppointment = new CreateAppointmentService(appointmentsRepository);
+  const createAppointment = container.resolve(CreateAppointmentService)
 
   const appointment = await createAppointment.execute({
     date: parsedDate,

@@ -10,7 +10,7 @@ import authConfig from '../../../config/auth'
 
 import IUsersRepository from '../repositories/IUsersRepository'
 
-
+import {injectable,inject} from 'tsyringe'
 
 
 interface Request {
@@ -23,10 +23,12 @@ interface Response {
     user: User;
     token:string;
 }
-class AuthenticateUserService {
-    constructor(private usersRepository:IUsersRepository) {
 
-    }
+@injectable()
+class AuthenticateUserService {
+    constructor(
+        @inject('UsersRepository')
+        private usersRepository:IUsersRepository) {}
 
     public async execute({email,password}:Request):Promise<Response> {
         

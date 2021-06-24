@@ -6,6 +6,7 @@ import {hash} from 'bcryptjs'
 import AppError from '../../../shared/errors/AppError';
 
 import IUsersRepository from '../repositories/IUsersRepository'
+import { inject, injectable } from 'tsyringe';
 
 interface Request {
  
@@ -16,9 +17,11 @@ interface Request {
 
 }
 
-
+@injectable()
 class CreateUserService {
-    constructor(private usersRepository:IUsersRepository) {
+    constructor(
+        @inject('UsersRepository')
+        private usersRepository:IUsersRepository) {
 
     }
     public async execute({name,email,password}:Request) : Promise<User> {
