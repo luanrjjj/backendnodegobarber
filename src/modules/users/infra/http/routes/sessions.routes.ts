@@ -2,8 +2,6 @@ import {Router} from 'express';
 
 const sessionsRouter = Router();
 
-import UsersRepository from '../../typeorm/repositories/UsersRepository'
-
 import AuthenticateUserService from '../../../services/AuthenticateUserService';
 
 import {container} from 'tsyringe';
