@@ -10,6 +10,7 @@ export default class UsersController {
         const { name, email, password } = request.body;
         const usersRepository = new UsersRepository()
     
+
         const createUser = container.resolve(CreateUserService)
       
         const user = await createUser.execute({
