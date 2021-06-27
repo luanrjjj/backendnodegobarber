@@ -33,7 +33,7 @@ class CreateAppointmentService {
     
     public async execute({date,provider_id}: IRequest):Promise<Appointment> {  // 1- Resolvido aqui
 
-        const appointmentsRepository = getCustomRepository(AppointmentsRepository);
+       
         const appointmentDate = startOfHour(date)
 
 
