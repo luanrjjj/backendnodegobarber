@@ -5,6 +5,8 @@ import AppointmentsRepository from '../../modules/appointments/infra/typeorm/rep
 
 import IUsersRepository from '../../modules/users/repositories/IUsersRepository'
 import UsersRepository from '../../modules/users/infra/typeorm/repositories/UsersRepository'
+import '../providers'
+
 
 container.registerSingleton<IAppointmentsRepository>('AppointmentsRepository',delay(()=>AppointmentsRepository))
 

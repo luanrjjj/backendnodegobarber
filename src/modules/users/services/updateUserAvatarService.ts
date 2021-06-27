@@ -6,7 +6,7 @@ import fs from 'fs';
 import AppError from '../../../shared/errors/AppError';
 
 import IUsersRepository from '../repositories/IUsersRepository'
-
+import IStorageProvider from '../../../shared/providers/StorageProvider/models/IStorageProvider'
 import { inject, injectable } from 'tsyringe';
 
 interface Request {
@@ -19,7 +19,11 @@ class UpdateUserAvatarService {
 
     constructor (
         @inject('UsersRepository')
-        private usersRepository:IUsersRepository) {}
+        private usersRepository:IUsersRepository,
+
+        @inject('StorageProvider')
+        private storageProvider:IStorageProvider
+        ){}
 
 
         
@@ -41,20 +45,14 @@ class UpdateUserAvatarService {
         if (user.avatar) {
             //Deletar avatar anterior
 
-            const userAvatarFilePath = path.join(uploadConfig.directory,user.avatar);
+            await this.storageProvider.deleteFile(user.avatar)
             
-            const userAvatarFileExists = await fs.promises.stat(userAvatarFilePath) ;
-
-        
-
-        if (userAvatarFileExists) {
-            await fs.promises.unlink(userAvatarFilePath);
-
         }
 
-        }
+        const filename = await this.storageProvider.saveFile(avatarFilename)
 
-        user.avatar = avatarFilename;
+        user.avatar = filename;
+    
         await this.usersRepository.save(user)
 
 
