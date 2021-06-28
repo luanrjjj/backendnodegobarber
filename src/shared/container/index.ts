@@ -8,6 +8,8 @@ import UsersRepository from '../../modules/users/infra/typeorm/repositories/User
 import '../providers'
 
 
+
+
 container.registerSingleton<IAppointmentsRepository>('AppointmentsRepository',delay(()=>AppointmentsRepository))
 
 

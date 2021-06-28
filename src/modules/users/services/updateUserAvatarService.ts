@@ -28,13 +28,8 @@ class UpdateUserAvatarService {
 
         
     public async execute({user_id,avatarFilename}:Request):Promise<User> {
-        
-
-       
 
         const user = await this.usersRepository.findById(user_id)
-        
-        
 
         if (!user) {
             throw new AppError ('Only authenticated user can change avatar',401);
@@ -43,10 +38,8 @@ class UpdateUserAvatarService {
 
         
         if (user.avatar) {
-            //Deletar avatar anterior
-
-            await this.storageProvider.deleteFile(user.avatar)
-            
+                 
+            await this.storageProvider.deleteFile(user.avatar) 
         }
 
         const filename = await this.storageProvider.saveFile(avatarFilename)
