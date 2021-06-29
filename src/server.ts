@@ -14,7 +14,7 @@ app.get('/',(request,response)=> {
 })
 
 app.use(express.json());
-
+app.use('/files',express.static(uploadConfig.uploadsFolder))
 
 app.use(routes);
 

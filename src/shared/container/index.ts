@@ -7,14 +7,13 @@ import IUsersRepository from '../../modules/users/repositories/IUsersRepository'
 import UsersRepository from '../../modules/users/infra/typeorm/repositories/UsersRepository'
 import '../providers'
 
- import IUserTokensRepository from '../../modules/users/repositories/IUsersRepository'
- import UserTokensRepository from '../../modules/users/infra/typeorm/repositories/UsersRepository'
+ import IUserTokensRepository from '../../modules/users/repositories/IUserTokensRepository'
+ import UserTokensRepository from '../../modules/users/infra/typeorm/repositories/UserTokensRepository'
 
 
 container.registerSingleton<IAppointmentsRepository>('AppointmentsRepository',delay(()=>AppointmentsRepository))
 
 
-
 container.registerSingleton<IUsersRepository>('UsersRepository',delay(()=>UsersRepository))
 
-container.registerSingleton<IUserTokensRepository>('UsersTokensRepository',delay(()=>UserTokensRepository))
+container.registerSingleton<IUserTokensRepository>('UserTokensRepository',delay(()=>UserTokensRepository))
