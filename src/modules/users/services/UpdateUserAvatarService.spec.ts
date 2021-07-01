@@ -6,7 +6,7 @@ import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository'
 import CreateUserService from './CreateUserService';
 import FakeStorageProvider from '../../../shared/providers/StorageProvider/fakes/FakeStorageProvider';
 import UpdateUserAvatarService from './updateUserAvatarService';
-import FakeMailProvider from '@shared/providers/MailProvider/fakes/FakeMailProvider';
+import FakeMailProvider from '../../../shared/providers/MailProvider/fakes/FakeMailProvider';
 
 let fakeUsersRepository:FakeUsersRepository;
 
