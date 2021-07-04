@@ -5,6 +5,7 @@ import User from '../../../users/infra/typeorm/entities/User'
 
 
 import {v4} from 'uuid'
+import IFindAllProvidersDTO from '@modules/users/dtos/IFindAllProviders';
 
 class UsersRepository implements IUsersRepository {
     private users:User [] = []
@@ -20,6 +21,14 @@ class UsersRepository implements IUsersRepository {
         
         return user;
         
+    }
+
+    public async findAllProviders({except_user_id}:IFindAllProvidersDTO):Promise<User[]>{
+        let users=this.users
+        if (except_user_id) {
+            users=this.users.filter(user=>user.id!=except_user_id);
+        }
+        return users
     }
 
 
