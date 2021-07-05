@@ -9,7 +9,7 @@ import AppointmentsRepository from '../../typeorm/repositories/AppointmentsRepos
 export default class AppointmentsController {
 
   public async create(request: Request, response: Response): Promise<Response> {
-
+    const user_id = request.user.id  // GErador no Middleware
     const appointmentsRepository = new AppointmentsRepository();
     const { provider_id, date } = request.body;
 
@@ -20,6 +20,7 @@ export default class AppointmentsController {
     const appointment = await createAppointment.execute({
       date: parsedDate,
       provider_id,
+      user_id
     });
 
     console.log(100, appointment)

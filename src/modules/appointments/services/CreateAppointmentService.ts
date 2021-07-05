@@ -19,6 +19,7 @@ import { container, inject, injectable } from 'tsyringe';
 
 interface IRequest {
     date : Date;
+    user_id:string;
     provider_id:string
 }
 
@@ -32,7 +33,7 @@ class CreateAppointmentService {
         ) {}
     
     
-    public async execute({date,provider_id}: IRequest):Promise<Appointment> {  // 1- Resolvido aqui
+    public async execute({date,provider_id,user_id}: IRequest):Promise<Appointment> {  // 1- Resolvido aqui
 
        
         const appointmentDate = startOfHour(date)
@@ -51,6 +52,7 @@ class CreateAppointmentService {
             
             date: appointmentDate,
             provider_id,
+            user_id,
             
             
         });
