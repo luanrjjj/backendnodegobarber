@@ -33,9 +33,11 @@ class CreateAppointmentService {
         ) {}
     
     
-    public async execute({date,provider_id,user_id}: IRequest):Promise<Appointment> {  // 1- Resolvido aqui
-       
+    public async execute({date,provider_id,user_id}: IRequest):Promise<Appointment> {  
+        console.log('1',date)
         const appointmentDate = startOfHour(date)
+        console.log('2',appointmentDate)
+        
 
         if(isBefore(appointmentDate,Date.now())) {
             throw new AppError("You can't create a Appointment in past date")

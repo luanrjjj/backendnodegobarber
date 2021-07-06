@@ -6,7 +6,7 @@ import Appointment from '../../infra/typeorm/entities/Appointment';
 import IAppointmentsRepository from '../../../appointments/repositories/IAppointmentsRepository'
 import ICreateAppointmentDTO from '../../../appointments/dtos/ICreateAppointmentDTO';
 import IFindAllInMonthFromProvider from '@modules/appointments/dtos/IFindInAllMonthFromProviderDTO';
-import IFindAllInDayFromProvider from '@modules/appointments/dtos/IFindInAllDayFromProviderDTO';
+import IFindAllInDayFromProvider from '@modules/appointments/dtos/IFindAllInDayFromProviderDTO';
 
 
 
