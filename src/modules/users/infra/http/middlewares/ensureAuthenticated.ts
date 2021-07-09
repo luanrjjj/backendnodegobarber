@@ -24,7 +24,7 @@ export default function ensureAuthenticated(
 
     const authHeader = request.headers.authorization;
 
-    console.log(authHeader)
+    console.log('1',authHeader)
 
     if (!authHeader) {
         throw new AppError('JWT token is missing',401)
@@ -33,15 +33,21 @@ export default function ensureAuthenticated(
     //Bearer sauidhasudgh
 
     const [,token] = authHeader.split(' ');
-    console.log(authConfig.jwt.secret)
+
+    console.log('teste2',token)
+    console.log('teste3',authConfig.jwt.secret)
+
     try {
     const decoded = verify(token,authConfig.jwt.secret )
+   
 
     const { sub } = decoded as TokenPayload;
     
     request.user = {
         id:sub,
     }
+
+    
 
     return next();
 
