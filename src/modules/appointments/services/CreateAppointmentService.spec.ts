@@ -4,14 +4,16 @@ import 'reflect-metadata'
 import FakeAppointmentsRepository from '../repositories/fakes/FakeAppointmentsRepository'
 
 import CreateAppointmentService from './CreateAppointmentService';
+import  FakeNotificationsRepository from '../../notifications/repositories/INotificationsRepositories'
 
 let fakeAppointmentsRepository: FakeAppointmentsRepository
 let createAppointment: CreateAppointmentService
+let fakeNotificationsRepository: FakeNotificationsRepository;
 
 describe('CreateAppointment', () => {
     beforeEach(() => {
         fakeAppointmentsRepository = new FakeAppointmentsRepository();
-        createAppointment = new CreateAppointmentService(fakeAppointmentsRepository,)
+        createAppointment = new CreateAppointmentService(fakeAppointmentsRepository,fakeNotificationsRepository)
 
     });
 

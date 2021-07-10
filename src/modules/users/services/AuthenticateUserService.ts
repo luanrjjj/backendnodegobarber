@@ -57,6 +57,8 @@ class AuthenticateUserService {
 
         }
 
+        console.log(authConfig.jwt)
+
         const {secret,expiresIn} = authConfig.jwt;
 
 

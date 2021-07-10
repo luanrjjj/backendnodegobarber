@@ -1,4 +1,7 @@
 import {Router} from 'express';
+import { celebrate, Joi,Segments } from 'celebrate';
+
+import {Root as joi,ValidationOptions,ValidationError,ValidationResult} from '@hapi/joi'
 
 
 import ensureAuthenticated from '../../../../users/infra/http/middlewares/ensureAuthenticated';
@@ -25,7 +28,14 @@ appointmentsRouter.use(ensureAuthenticated); // Será aplicado em todas as rotas
 
 //  })
 
-appointmentsRouter.post('/',appointmentsController.create)
+appointmentsRouter.post('/',celebrate({
+    [Segments.BODY] : {
+        provider_id:Joi.string().uuid().required(),
+        date:Joi.date()
+    }
+}),appointmentsController.create,
+
+)
 appointmentsRouter.get('/me',providerAppointmentsController.index)
 
 export default appointmentsRouter;

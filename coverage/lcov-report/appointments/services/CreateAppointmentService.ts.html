@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">97.33% </span>
+                <span class="strong">94.32% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>73/75</span>
+                <span class='fraction'>83/88</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.89% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>8/9</span>
+                <span class='fraction'>8/10</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">97.33% </span>
+                <span class="strong">94.32% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>73/75</span>
+                <span class='fraction'>83/88</span>
             </div>
         
             
@@ -131,7 +131,21 @@
 <a name='L72'></a><a href='#L72'>72</a>
 <a name='L73'></a><a href='#L73'>73</a>
 <a name='L74'></a><a href='#L74'>74</a>
-<a name='L75'></a><a href='#L75'>75</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -164,9 +178,14 @@
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
@@ -202,18 +221,26 @@
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">import Appointment from '../infra/typeorm/entities/Appointment';
 import AppointmentsRepository from '../../appointments/infra/typeorm/repositories/AppointmentsRepository';
-import {startOfHour,isBefore, getHours} from 'date-fns';
+import {startOfHour,isBefore, getHours,format} from 'date-fns';
 import {getCustomRepository} from 'typeorm';
 import AppError from '../../../shared/errors/AppError'
 &nbsp;
 import IAppointmentsRepository from '../repositories/IAppointmentsRepository'
 &nbsp;
 import { container, inject, injectable } from 'tsyringe';
+import INotificationsRepository from '../../notifications/repositories/INotificationsRepositories';
 &nbsp;
 /**
  * 1 - Recebimento das Informações
@@ -236,13 +263,18 @@ class CreateAppointmentService {
   
     constructor (
         @inject('AppointmentsRepository')
-        private appointmentsRepository:IAppointmentsRepository
+        private appointmentsRepository:IAppointmentsRepository,
+        
+&nbsp;
+        @inject('NotificationsRepository')
+        private notificationsRepository:INotificationsRepository
         ) {}
     
-    
-    public async execute({date,provider_id,user_id}: IRequest):Promise&lt;Appointment&gt; {  // 1- Resolvido aqui
-       
+    public async execute({date,provider_id,user_id}: IRequest):Promise&lt;Appointment&gt; {  
+        console.log('1',date)
         const appointmentDate = startOfHour(date)
+        console.log('2',appointmentDate)
+        
 &nbsp;
         if(isBefore(appointmentDate,Date.now())) {
             throw new AppError("You can't create a Appointment in past date")
@@ -273,6 +305,13 @@ class CreateAppointmentService {
             
         });
 &nbsp;
+        const dateFormatted = format(appointmentDate,"dd/MM/yyyy 'às' HH:mm'h'")
+&nbsp;
+        await this.notificationsRepository<span class="branch-0 cbranch-no" title="branch not covered" >?.create({</span>
+<span class="cstat-no" title="statement not covered" >            recipient_id:provider_id,</span>
+<span class="cstat-no" title="statement not covered" >            content:`'Novo Agendamento para dia ${dateFormatted}`</span>
+<span class="cstat-no" title="statement not covered" >        })</span>
+&nbsp;
         
 &nbsp;
         return  appointment;
@@ -286,7 +325,7 @@ export default CreateAppointmentService;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jul 05 2021 01:41:47 GMT-0300 (Horário Padrão de Brasília)
+                at Thu Jul 08 2021 23:44:01 GMT-0300 (Horário Padrão de Brasília)
             </div>
         </div>
         <script src="../../prettify.js"></script>

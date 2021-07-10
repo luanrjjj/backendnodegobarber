@@ -5,6 +5,7 @@ import ProvidersController from '../controllers/ProvidersController';
 
 import ProviderMonthAvailabilityController from '../controllers/ProviderMonthAvailabilityController';
 import ProviderDayAvailabilityController from '../controllers/ProviderDayAvailabilityController';
+import { celebrate, Joi, Segments } from 'celebrate';
 
 const providersRouter = Router();
 const providersController = new ProvidersController();
@@ -18,6 +19,11 @@ providersRouter.get('/', providersController.index);
 
 providersRouter.get(
     '/:provider_id/month-availability',
+    celebrate({
+      [Segments.PARAMS]: {
+        provider_id:Joi.string().uuid().required(),
+      }
+    }),
     providerMonthAvailabilityController.index,
   );
   providersRouter.get(

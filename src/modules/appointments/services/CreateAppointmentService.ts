@@ -74,7 +74,7 @@ class CreateAppointmentService {
 
         const dateFormatted = format(appointmentDate,"dd/MM/yyyy 'às' HH:mm'h'")
 
-        await this.notificationsRepository.create({
+        await this.notificationsRepository?.create({
             recipient_id:provider_id,
             content:`'Novo Agendamento para dia ${dateFormatted}`
         })

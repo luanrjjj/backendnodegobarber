@@ -2,8 +2,7 @@
 import {Request,Response} from 'express';
 import {container} from 'tsyringe';
 import AuthenticateUserService from '../../../services/AuthenticateUserService';
-
-
+import {classToClass} from 'class-transformer';
 
 
 // index, show, create, update, delete
@@ -19,14 +18,8 @@ export default class SessionsController {
       password,
     });
   
-    const userWithoutPassword = {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      created_at: user.created_at,
-      updated_at: user.updated_at,
-    };
+    
   
-    return response.json({ user: userWithoutPassword, token });
+    return response.json({ user: classToClass(user), token });
     } 
 }

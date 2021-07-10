@@ -3,6 +3,7 @@ import IMailProvider from '../../../shared/providers/MailProvider/models/IMailPr
 import { inject, injectable } from 'tsyringe';
 import AppError from '../../../shared/errors/AppError';
 import IUserTokensRepository from '../repositories/IUserTokensRepository'
+import path from 'path';
 
 interface IRequest {
     email:string;
@@ -26,6 +27,7 @@ class SendForgotPasswordEmailService{
 
         const user = await this.usersRepository.findByEmail(email);
 
+        console.log(email)
 
         if (!user) {
             throw new AppError('User does not exists.')
@@ -35,6 +37,13 @@ class SendForgotPasswordEmailService{
 
         const {token} = await this.userTokensRepository.generate(user.id)
 
+        const forgotPasswordTemplate = path.resolve(
+            __dirname,
+            '..',
+            'views',
+            'forgot_password.hbs'
+            )
+
         await this.mailProvider.sendMail({
             to: {
                 name:user.name,
@@ -42,10 +51,11 @@ class SendForgotPasswordEmailService{
             },
             subject:'[GoBarber] Recuperação de senha',
             templateData: {
-                file:'Ola,{{name}}:{{token}}',
+                file:forgotPasswordTemplate,
                 variables: {
                     name:user.name,
                     token,
+                    link:`${process.env.APP_WEB_URL}/reset_password?token=${token}`
                 }
             }
         })
