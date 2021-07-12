@@ -1,15 +1,16 @@
 import "reflect-metadata";
+import 'dotenv/config';
 import express,{Request , Response, NextFunction, response} from 'express';
 import routes from './shared/infra/http/routes';
 import uploadConfig from './config/upload'
 import { errors } from 'celebrate' 
 import AppError from './shared/errors/AppError';
-import 'dotenv/config';
 
 import './shared/infra/typeorm';
 import './shared/container'
 
 const app =express ();
+
 
 app.get('/',(request,response)=> {
     return response.json({message:'Hello Gold;'});
