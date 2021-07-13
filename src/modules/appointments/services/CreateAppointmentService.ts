@@ -9,6 +9,8 @@ import IAppointmentsRepository from '../repositories/IAppointmentsRepository'
 import { container, inject, injectable } from 'tsyringe';
 import INotificationsRepository from '../../notifications/repositories/INotificationsRepositories';
 
+import ICacheProvider from '../../../shared/providers/CacheProvider/models/ICacheProvider'
+
 /**
  * 1 - Recebimento das Informações
  * 2 - Tratativa de Erros e Exceções
@@ -34,7 +36,10 @@ class CreateAppointmentService {
         
 
         @inject('NotificationsRepository')
-        private notificationsRepository:INotificationsRepository
+        private notificationsRepository:INotificationsRepository,
+
+        @inject('CacheProvider')
+        private cacheProvider: ICacheProvider,
         ) {}
     
     public async execute({date,provider_id,user_id}: IRequest):Promise<Appointment> {  
@@ -79,7 +84,8 @@ class CreateAppointmentService {
             content:`'Novo Agendamento para dia ${dateFormatted}`
         })
 
-        
+        await this.cacheProvider.invalidate(`
+        provider-appointments:${provider_id}:${format(appointmentDate,'yyyy-M-d')}`)
 
         return  appointment;
     }
