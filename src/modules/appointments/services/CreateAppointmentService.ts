@@ -38,9 +38,9 @@ class CreateAppointmentService {
         ) {}
     
     public async execute({date,provider_id,user_id}: IRequest):Promise<Appointment> {  
-        console.log('1',date)
+        
         const appointmentDate = startOfHour(date)
-        console.log('2',appointmentDate)
+        
         
 
         if(isBefore(appointmentDate,Date.now())) {

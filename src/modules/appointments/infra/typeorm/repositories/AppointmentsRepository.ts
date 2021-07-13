@@ -39,11 +39,9 @@ class AppointmentsRepository implements IAppointmentsRepository {
         month,
         year,
       }: IFindAllInMonthFromProviderDTO): Promise<Appointment[]> {
-          console.log('6',month)
-          console.log('6.1',year)
-          console.log()
+          
         const parsedMonth = String(month).padStart(2, '0');
-        console.log('7',parsedMonth)
+        
         const appointments = await this.ormRepository.find({
           where: {
             provider_id,
@@ -54,7 +52,7 @@ class AppointmentsRepository implements IAppointmentsRepository {
           },
           
         });
-        console.log('8',appointments)
+    
         
     
         return appointments;

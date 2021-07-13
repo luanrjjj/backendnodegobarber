@@ -23,7 +23,7 @@ export default class AppointmentsController {
       user_id
     });
 
-    console.log(100, appointment)
+    
     return response.json(appointment);
   }
 }

@@ -27,7 +27,7 @@ class SendForgotPasswordEmailService{
 
         const user = await this.usersRepository.findByEmail(email);
 
-        console.log(email)
+  
 
         if (!user) {
             throw new AppError('User does not exists.')

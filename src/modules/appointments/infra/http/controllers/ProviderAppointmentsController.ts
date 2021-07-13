@@ -6,7 +6,7 @@ import ListProviderAppointmentsService from '../../../../appointments/services/L
 export default class ProviderAppointmentsController {
   public async index(request: Request, response: Response): Promise<Response> {
     const provider_id = request.user.id;
-    console.log('provider_id',provider_id)
+    
     const { day, month, year } = request.body;
 
     const listProviderAppointments = container.resolve(
@@ -20,7 +20,7 @@ export default class ProviderAppointmentsController {
       year,
     });
 
-    console.log('teste,appointments')
+   
 
 
     return response.json(appointments);
