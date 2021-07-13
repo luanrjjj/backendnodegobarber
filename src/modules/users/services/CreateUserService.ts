@@ -1,7 +1,7 @@
 
 import { getRepository,Repository } from 'typeorm';
 import User from '../infra/typeorm/entities/User';
-import {hash} from 'bcryptjs'
+import {hash} from 'bcryptjs';
 
 import AppError from '../../../shared/errors/AppError';
 
@@ -11,8 +11,10 @@ import IUsersRepository from '../repositories/IUsersRepository'
 import { inject, injectable } from 'tsyringe';
 
 
-import IHashProvider from '../providers/HashProvider/models/IHashProvider'
+
+import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 import HashProvider from'../providers/HashProvider/implementations/BCryptHashProvider';
+import ICacheProvider from '../../../shared/providers/CacheProvider/models/ICacheProvider';
 
 
 interface Request {
@@ -31,7 +33,10 @@ class CreateUserService {
         private usersRepository:IUsersRepository,
 
         @inject('HashProvider')
-        private hashProvider:IHashProvider
+        private hashProvider:IHashProvider,
+        
+        @inject ('CacheProvider')
+        private cacheProvider :ICacheProvider,
         ) {}
     public async execute({name,email,password}:Request) : Promise<User> {
        
@@ -51,6 +56,8 @@ class CreateUserService {
             email,
             password:hashedPassword     
         })
+
+        await this.cacheProvider.invalidatePrefix('providers-list');
 
 
         
