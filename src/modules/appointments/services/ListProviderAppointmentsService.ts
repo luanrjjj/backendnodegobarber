@@ -32,7 +32,7 @@ class ListProviderAppointmentsService {
     const cacheKey = `provider-appointments:${provider_id}:${ year }-${ month }-${ day }`
 
 
-    let appointments = await this.cacheProvider.recover<Appointment[]>('ornitorrinco');
+    let appointments = await this.cacheProvider?.recover<Appointment[]>('ornitorrinco');
 
 
     if(!appointments) { 
@@ -46,7 +46,7 @@ class ListProviderAppointmentsService {
     );
 
     console.log('Buscou do Banco')
-    await this.cacheProvider.save(cacheKey,appointments);
+    await this.cacheProvider?.save(cacheKey,appointments);
     }
 
     return appointments;
