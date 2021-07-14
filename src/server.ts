@@ -5,12 +5,13 @@ import routes from './shared/infra/http/routes';
 import uploadConfig from './config/upload'
 import { errors } from 'celebrate' 
 import AppError from './shared/errors/AppError';
+import rateLimiter from './shared/infra/http/midleware/rateLimiter'
 
 import './shared/infra/typeorm';
 import './shared/container'
 
 const app =express ();
-
+app.use(rateLimiter);
 
 app.get('/',(request,response)=> {
     return response.json({message:'Hello Gold;'});
