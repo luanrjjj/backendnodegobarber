@@ -26,7 +26,7 @@ class SendForgotPasswordEmailService{
     public async execute({email}:IRequest): Promise<void> {
 
         const user = await this.usersRepository.findByEmail(email);
-
+        
   
 
         if (!user) {
@@ -36,6 +36,8 @@ class SendForgotPasswordEmailService{
         
 
         const {token} = await this.userTokensRepository.generate(user.id)
+      
+
 
         const forgotPasswordTemplate = path.resolve(
             __dirname,
@@ -43,6 +45,7 @@ class SendForgotPasswordEmailService{
             'views',
             'forgot_password.hbs'
             )
+            console.log('template',forgotPasswordTemplate)
 
         await this.mailProvider.sendMail({
             to: {
@@ -54,7 +57,6 @@ class SendForgotPasswordEmailService{
                 file:forgotPasswordTemplate,
                 variables: {
                     name:user.name,
-                    token,
                     link:`${process.env.APP_WEB_URL}/reset_password?token=${token}`
                 }
             }

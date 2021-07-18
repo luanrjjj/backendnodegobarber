@@ -13,6 +13,9 @@ import './shared/container'
 const app =express ();
 app.use(rateLimiter);
 
+var cors = require('cors')
+
+app.use(cors()) // Use this after the variable declaration
 app.get('/',(request,response)=> {
     return response.json({message:'Hello Gold;'});
 })
