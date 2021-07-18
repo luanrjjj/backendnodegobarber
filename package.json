@@ -4,12 +4,13 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "tsc",
+    "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files",
     "dev:server": "ts-node-dev --transpile-only  --inspect --ignore-watch  node_modules src/server.ts",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
     "test": "jest"
   },
   "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.14.5",
     "@types/ioredis": "^4.26.5",
     "@types/redis": "^2.8.31",
     "@typescript-eslint/eslint-plugin": "^4.11.0",
@@ -43,6 +44,12 @@
     "v4": "^0.0.1"
   },
   "devDependencies": {
+    "@babel/cli": "^7.14.5",
+    "@babel/core": "^7.14.6",
+    "@babel/node": "^7.14.7",
+    "@babel/plugin-proposal-decorators": "^7.14.5",
+    "@babel/preset-env": "^7.14.7",
+    "@babel/preset-typescript": "^7.14.5",
     "@types/bcryptjs": "^2.4.2",
     "@types/express": "^4.17.9",
     "@types/hapi__joi": "^17.1.7",
@@ -52,6 +59,8 @@
     "@types/multer": "^1.4.5",
     "@types/node": "^14.14.16",
     "@types/nodemailer": "^6.4.2",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "babel-plugin-transform-typescript-metadata": "^0.3.2",
     "eslint": "5.16.0",
     "eslint-config-prettier": "^7.1.0",
     "eslint-import-resolver-typescript": "^2.3.0",
