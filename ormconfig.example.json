@@ -6,10 +6,10 @@
         "username" :"postgres",
         "password" :"docker",
         "database" : "gobarber",
-        "entities" :["./dist/modules/**/infra/typeorm/entities/*.js"],
-        "migrations" : ["./dist/shared/infra/typeorm/migrations/*.js"],
+        "entities" :["src/modules/**/infra/typeorm/entities/*.js"],
+        "migrations" : ["src/shared/infra/typeorm/migrations/*.js"],
         "cli" : {
-            "migrationsDir": "./dist/shared/infra/typeorm/migrations"
+            "migrationsDir": "src/shared/infra/typeorm/migrations"
         }
     },
     {
@@ -20,7 +20,7 @@
         "database": "gobarber",
         "useUnifiedTopology": true,
         "entities": [
-          "./dist/modules/**/infra/typeorm/schemas/*.js"
+          "src/modules/**/infra/typeorm/schemas/*.js"
         ]
       }
 ]
