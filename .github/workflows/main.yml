@@ -1,0 +1,50 @@
+name: Jekyll site CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v2.3.0
+      with:
+       node-version: 12.x
+  
+    - name: Install Dependencies
+      run : yarn
+    - name: Run build
+      run: yarn build
+   
+    - name: Copy dist to Digital Ocean
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        key: ${{secrets.SSH_KEY}}
+        port: ${{ secrets.SSH_PORT }}
+        source: "dist"
+        target: "test"
+      
+      
+    
+    
+    #Instalar as Dependências
+    #Executar as builds
+    #Copiar pasta dist para dentro da digitalOcean
+    
+    #Substituir o codigo existente na pasta "dist" pelo novo codigo
+    #Executar "yarn" na Digital Ocean
+    #Executar as Migrations do TypeOrm
+    #Restart servidor node
+   
+    
+ 
