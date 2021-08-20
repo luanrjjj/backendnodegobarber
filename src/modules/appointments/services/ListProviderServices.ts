@@ -4,6 +4,7 @@ import User from '../../users/infra/typeorm/entities/User';
 import IUsersRepository from '../../users/repositories/IUsersRepository';
 
 import  ICacheProvider from '../../../shared/providers/CacheProvider/models/ICacheProvider'
+import {classToClass} from 'class-transformer'
 
 interface IRequest {
   user_id: string;
@@ -21,7 +22,8 @@ class ListProvidersService {
 
   public async execute({ user_id }: IRequest): Promise<User[]> {
 
-    let users = await this.cacheProvider.recover<User[]>(`providers-list:${user_id}`)
+   // let users = await this.cacheProvider.recover<User[]>(`providers-list:${user_id}`)
+   let users;
 
     if(!users) {
       users = await this.usersRepository.findAllProviders({
