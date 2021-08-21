@@ -54,7 +54,9 @@ class CreateUserService {
         const user = await this.usersRepository.create({
             name,
             email,
-            password:hashedPassword     
+            password:hashedPassword,
+            avatar_url:"https://meczbarber.s3.us-east-2.amazonaws.com/e7b7a9d81da5aa094f6b-avatarYellow.png"
+            
         })
 
         await this.cacheProvider.invalidatePrefix('providers-list');
