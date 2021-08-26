@@ -9,6 +9,8 @@ import IFindAllInDayFromProvider from '../../../dtos/IFindAllInDayFromProviderDT
 import IFindAllInMonthFromProviderDTO from '../../../dtos/IFindAllInMonthFromProviderDTO';
 
 
+import IFindAllFromUser from '../../../dtos/IFindAllFromUserDTO';
+
 
 
 
@@ -75,6 +77,21 @@ class AppointmentsRepository implements IAppointmentsRepository {
         
         return appointments;
     }
+
+
+
+    public async findAllFromUser({user_id}:IFindAllFromUser): Promise<Appointment []> {
+    
+      const appointments = await this.ormRepository.find({
+          where:{
+              user_id,
+          }
+      })
+
+      
+      return appointments;
+  }
+
 
 
 }

@@ -8,11 +8,13 @@ import ensureAuthenticated from '../../../../users/infra/http/middlewares/ensure
 
 import AppointmentsController from '../controllers/AppointmentsController'
  import ProviderAppointmentsController from '../controllers/ProviderAppointmentsController';
+import UserAppointmentsController from '../controllers/UserAppointmentsController';
 
 
 const appointmentsRouter = Router();
 const appointmentsController = new AppointmentsController();
 const providerAppointmentsController = new ProviderAppointmentsController();
+const userAppointmentsController = new UserAppointmentsController();
 
 
 appointmentsRouter.use(ensureAuthenticated); // Será aplicado em todas as rotas de Agendamento
@@ -37,5 +39,7 @@ appointmentsRouter.post('/',celebrate({
 
 )
 appointmentsRouter.get('/me',providerAppointmentsController.index)
+
+appointmentsRouter.get('/user',userAppointmentsController.index)
 
 export default appointmentsRouter;

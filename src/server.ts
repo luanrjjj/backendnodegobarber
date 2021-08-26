@@ -10,20 +10,32 @@ import rateLimiter from './shared/infra/http/midleware/rateLimiter'
 import './shared/infra/typeorm';
 import './shared/container'
 
-const app =express ();
-app.use(rateLimiter);
 
 var cors = require('cors')
+var app =express ();
 
-app.use(cors()) // Use this after the variable declaration
+
+
+
+app.use(cors({
+    origin:'*',
+})) // Use this after the variable declaration
+
+app.use((request: Request, response: Response, next: NextFunction) => {
+    response.header('Access-Control-Allow-Origin', '*');
+    response.header('Access-Control-Allow-Methods', 'GET');
+    response.header('Access-Control-Allow-Headers', 'Content-type');
+    next();
+  });
+
+app.use(rateLimiter);
 app.get('/',(request,response)=> {
     return response.json({message:'Hello Gold;'});
 })
-
 app.use(express.json());
 app.use('/files',express.static(uploadConfig.uploadsFolder))
 
-app.use(routes);
+app.use(routes)
 
 app.use(errors())
 
