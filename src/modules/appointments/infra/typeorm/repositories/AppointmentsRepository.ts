@@ -85,7 +85,8 @@ class AppointmentsRepository implements IAppointmentsRepository {
       const appointments = await this.ormRepository.find({
           where:{
               user_id,
-          }
+          },
+          relations:['provider']
       })
 
       
