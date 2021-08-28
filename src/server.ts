@@ -17,12 +17,9 @@ var app =express ();
 
 
 
-app.use(cors({
-    origin:'*',
-})) // Use this after the variable declaration
+app.use(cors()) // Use this after the variable declaration
 app.use((request: Request, response: Response, next: NextFunction) => {
     response.header('Access-Control-Allow-Origin', '*');
-    response.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     response.header('Access-Control-Allow-Headers', 'Content-type');
     next();
   });
