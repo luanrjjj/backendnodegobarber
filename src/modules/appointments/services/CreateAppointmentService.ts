@@ -87,9 +87,12 @@ class CreateAppointmentService {
         await this.cacheProvider?.invalidate(`
         provider-appointments:${provider_id}:${format(appointmentDate,'yyyy-M-d')}`)
 
+        console.log(appointment)
+        
         return  appointment;
+        
     }
-    console.log(appointment)
+
 
 }
 export default CreateAppointmentService;
