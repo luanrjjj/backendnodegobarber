@@ -89,6 +89,7 @@ class CreateAppointmentService {
 
         return  appointment;
     }
+    console.log(appointment)
 
 }
 export default CreateAppointmentService;
